@@ -1,0 +1,28 @@
+
+{% extends "base.html" %}
+
+{% block page_title %}
+    <h2>Rooms</h2>
+{% endblock page_title %}
+
+{% block page_content %}
+        <div>
+            {% for room_type in room_types %}
+                <a href="{% url 'room_type' room_type.id %}">{{room_type}}</a>
+            {% endfor %}
+        </div>
+        
+        <div>
+        {% for room in rooms %}
+            <div>
+            <button><a href="{% url 'house_index' room.house.id %}" >{{room.house}}</a></button>
+            <p>{{room.house.owner_name}}</p>
+            <p>{{room.room_type}}</p>
+            <p>{{room.available}}</p>
+            <p>{{room.rent}}</p>
+            </div>
+        {% endfor %}
+        </div>
+{% endblock page_content %}
+
+
