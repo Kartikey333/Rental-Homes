@@ -1,28 +1,95 @@
-
 {% extends "base.html" %}
 
 {% block page_title %}
-    <h2>Rooms</h2>
+    <h2><a href="{% url 'room_index'  %}">Rooms</a></h2>
 {% endblock page_title %}
 
 {% block page_content %}
-        <div>
+        <div id="header">
+            <p>
             {% for room_type in room_types %}
                 <a href="{% url 'room_type' room_type.id %}">{{room_type}}</a>
             {% endfor %}
+            </p>
         </div>
+
+        {% comment %} <div id="header">
+            <h1>La Saveur</h1>
+            <p>The Traditional Fench Taste</p>
+              </div> {% endcomment %}
         
-        <div>
+        <div class="container">
         {% for room in rooms %}
-            <div>
-            <button><a href="{% url 'house_index' room.house.id %}" >{{room.house}}</a></button>
-            <p>{{room.house.owner_name}}</p>
-            <p>{{room.room_type}}</p>
-            <p>{{room.available}}</p>
-            <p>{{room.rent}}</p>
+                <div class="card">
+                <div class="card-image">
+                    <img src="https://i.pinimg.com/736x/43/c2/71/43c271fb657c730a39801508aa08c6e9.jpg">
+                </div>
+                <div class="card-text">
+                    <p class="card-meal-type"><a href="{% url 'house_index' room.house.id %}" class="button">{{ room.house }}</a></p>
+                    <h2 class="card-title">{{room.room_type}}</h2>
+                    <p class="card-body">
+                        
+                            {% if room.available == True %}
+                                Available
+                            {% else %}
+                                Not Available
+                            {% endif %}
+                            <br/>
+                            Room Rent: {{room.rent}}
+                            <br/>
+                            Balcony:
+                            {% if room.balcony == True %}
+                                Present
+                            {% else %}
+                                Not Present
+                            {% endif %}
+                            <br/>
+                            Electricity Bill: {{room.electricity}}
+                            
+                        </p>
+                </div>
+                <div class="card-price">{{room.rent}}</div>
             </div>
+              
         {% endfor %}
         </div>
+
+        {% comment %} <main>
+        {% for room in rooms %}
+            <main>
+              <div class = "card">
+                <img src="https://images.unsplash.com/photo-1656618020911-1c7a937175fd?crop=entropy&cs=tinysrgb&fm=jpg&ixid=MnwzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2NTc1MzQyNTE&ixlib=rb-1.2.1&q=80" alt="">
+                <div class="card-content">
+                  <h2>
+                    {{room.room_type}}
+                  </h2>
+                  <p>
+                    {% if room.available == True %}
+                        Available
+                    {% else %}
+                        Not Available
+                    {% endif %}
+                    <br/>
+                    Room Rent: {{room.rent}}
+                    <br/>
+                    Balcony:
+                    {% if room.balcony == True %}
+                        Present
+                    {% else %}
+                        Not Present
+                    {% endif %}
+                    <br/>
+                    Electricity Bill: {{room.electricity}}
+                  </p>
+                        <a href="{% url 'house_index' room.house.id %}" class="button">
+                            {{room.house}} Find out more
+                        <span class="material-symbols-outlined">
+                        arrow_right_alt
+                        </span>
+                        </a>
+                </div>
+              </div>
+            </main> {% endcomment %}
 {% endblock page_content %}
 
 
