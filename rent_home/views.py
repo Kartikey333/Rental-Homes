@@ -1,37 +1,27 @@
 from django.shortcuts import render
-from rent_home.models import Room,RoomType,House
+from rent_home.models import Room, RoomType, House, Property_Type, Budget_Range, Area
+from .filters import RoomFilter
 
-def room_index(request, id = 0):
+def room_index(request):
 
-    room_types = RoomType.objects.all()
-    rooms = None
-    if id == 0:
-        rooms = Room.objects.all().order_by('-available') 
-    else:
-        # l = args
-        # print(type(args))
-        # print(args)
-        rooms = Room.objects.filter(room_type = id)
-
+    f = RoomFilter(request.GET, queryset=Room.objects.all())
 
     context = {
-        "rooms" : rooms,
-        "room_types" : room_types,
+        "rooms":f,
     }
 
-    # print(room_types)
-    # for room in room_types:
-    #     print(room.id)
     return render(request,"rent_home/room_index.html",context)
 
 def house_index(request, id):
     house = House.objects.get(id = id)
+    property_types = Property_Type.objects.all()
 
     context = {
         "house" : house,
+        "property_types" : property_types,
     }
     return render(request,"rent_home/house_index.html",context)
 
+def room_details(request):
 
-    
-
+    return render(request,"rent_home/room_details.html")

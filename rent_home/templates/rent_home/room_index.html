@@ -5,91 +5,109 @@
 {% endblock page_title %}
 
 {% block page_content %}
-        <div id="header">
-            <p>
-            {% for room_type in room_types %}
-                <a href="{% url 'room_type' room_type.id %}">{{room_type}}</a>
-            {% endfor %}
-            </p>
-        </div>
 
-        {% comment %} <div id="header">
-            <h1>La Saveur</h1>
-            <p>The Traditional Fench Taste</p>
-              </div> {% endcomment %}
+{% comment %} <div class="demo"> {% endcomment %}
         
-        <div class="container">
-        {% for room in rooms %}
-                <div class="card">
-                <div class="card-image">
-                    <img src="https://i.pinimg.com/736x/43/c2/71/43c271fb657c730a39801508aa08c6e9.jpg">
-                </div>
-                <div class="card-text">
-                    <p class="card-meal-type"><a href="{% url 'house_index' room.house.id %}" class="button">{{ room.house }}</a></p>
-                    <h2 class="card-title">{{room.room_type}}</h2>
-                    <p class="card-body">
-                        
-                            {% if room.available == True %}
-                                Available
-                            {% else %}
-                                Not Available
-                            {% endif %}
-                            <br/>
-                            Room Rent: {{room.rent}}
-                            <br/>
-                            Balcony:
-                            {% if room.balcony == True %}
-                                Present
-                            {% else %}
-                                Not Present
-                            {% endif %}
-                            <br/>
-                            Electricity Bill: {{room.electricity}}
-                            
-                        </p>
-                </div>
-                <div class="card-price">{{room.rent}}</div>
-            </div>
-              
-        {% endfor %}
-        </div>
+    <div class="form-filter">
+        <form method="GET">
+                {{ rooms.form.furnished }}
+                {{ rooms.form.room_type }}
+                {{ rooms.form.available }}
+                {{ rooms.form.room_for }}
 
-        {% comment %} <main>
-        {% for room in rooms %}
-            <main>
-              <div class = "card">
-                <img src="https://images.unsplash.com/photo-1656618020911-1c7a937175fd?crop=entropy&cs=tinysrgb&fm=jpg&ixid=MnwzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2NTc1MzQyNTE&ixlib=rb-1.2.1&q=80" alt="">
-                <div class="card-content">
-                  <h2>
-                    {{room.room_type}}
-                  </h2>
-                  <p>
-                    {% if room.available == True %}
-                        Available
-                    {% else %}
-                        Not Available
-                    {% endif %}
-                    <br/>
-                    Room Rent: {{room.rent}}
-                    <br/>
-                    Balcony:
-                    {% if room.balcony == True %}
-                        Present
-                    {% else %}
-                        Not Present
-                    {% endif %}
-                    <br/>
-                    Electricity Bill: {{room.electricity}}
-                  </p>
-                        <a href="{% url 'house_index' room.house.id %}" class="button">
-                            {{room.house}} Find out more
-                        <span class="material-symbols-outlined">
-                        arrow_right_alt
-                        </span>
-                        </a>
+                {{ rooms.form.budget_range }}
+
+
+                <input type="submit" />
+        </form>
+    </div>
+ 
+    {% for room in rooms.qs %}
+    <div class="my-div">
+    <div class="container">
+        <div>
+            <img
+            src="https://images.unsplash.com/photo-1549589237-9e70b6be4da8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=925&q=80"
+            alt="House"
+            />
+        </div>
+       
+        <div class="container__text">
+            <h1>{{room.room_type}}</h1>
+            <div class="btn_top">
+                {{room.room_for}}
+            </div>
+            <div class="availibility">
+                <div class="box-1">
+                    {{room.house}} {{room.house.area}}
                 </div>
-              </div>
-            </main> {% endcomment %}
+                <div class="availibility-status">    
+                    <div class="availibility-circle"></div>
+                    <div class="box-2">{{room.available}}</div>
+                </div>
+                
+            </div>
+        
+
+            <div class="container__text__star">
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            </div>
+            {% comment %} <p>
+            If you're fan of caramel cake, then you'll love our Caramel Cake Pancakes.
+            We Complete these over-the-top pancakes with Caramel Syrup.
+            </p> {% endcomment %}
+            <div class="container__text__timing">
+                <div class="container__text__timing_time">
+                    <h2>Hands-on Time</h2>
+                    <p>30 min</p>
+                </div>
+                <div class="container__text__timing_time">
+                <h2>Total Time</h2>
+                <p>40 min</p>
+                </div>
+                <div class="container__text__timing_time">
+                <h2>Yield</h2>
+                <p>40 min</p>
+                </div>
+            </div>
+            <div class="container__text__timing">
+                <div class="container__text__timing_time">
+                    <h2>Hands-on Time</h2>
+                    <p>30 min</p>
+                </div>
+                <div class="container__text__timing_time">
+                <h2>Total Time</h2>
+                <p>40 min</p>
+                </div>
+                <div class="container__text__timing_time">
+                <h2>Yield</h2>
+                <p>40 min</p>
+                </div>
+            </div>
+
+            <button class="btn">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                <a href="https://www.google.com/maps?q={{ room.house.latitude }},{{ room.house.longitude }}" target="_blank" class="no-underline">
+                    View on Map</a>
+                <i class="fa fa-arrow-right"></i></button>
+        </div>
+    </div>
+
+    </div> 
+
+    <div>
+        <p>
+            
+        </p>
+
+    </div>
+    {% endfor %}
+    
+{% comment %} </div> {% endcomment %}
 {% endblock page_content %}
 
 

@@ -36,8 +36,11 @@ class House(models.Model):
     owner_name = models.CharField(max_length=30)
     contact_no = models.IntegerField()
     address = models.TextField()
-    area = models.ForeignKey('Area', on_delete=models.CASCADE)
-    property_type = models.ForeignKey('Property_Type', on_delete=models.CASCADE)
+    area = models.ForeignKey('Area', on_delete=models.CASCADE, null=True)
+    property_type = models.ForeignKey('Property_Type', on_delete=models.CASCADE, null=True)
+
+    latitude = models.FloatField(null=True)
+    longitude = models.FloatField(null=True)
 
 
     def __str__(self):
@@ -47,7 +50,7 @@ class Room(models.Model):
 
     house = models.ForeignKey('House',on_delete=models.CASCADE)
     
-    bhk = models.ForeignKey('RoomType', on_delete=models.CASCADE)
+    room_type = models.ForeignKey('RoomType',on_delete=models.CASCADE, null=True)
 
     furnished = models.BooleanField(default=False)
 
@@ -57,10 +60,16 @@ class Room(models.Model):
 
     lat_bath = models.TextField(max_length=20)
 
-    budget_range = models.ForeignKey("Budget_Range", on_delete=models.CASCADE)
+    budget_range = models.ForeignKey("Budget_Range", on_delete=models.CASCADE, null=True)
     rent = models.IntegerField()
 
     electricity = models.TextField(max_length=15)
+
+    room_for = models.TextField(max_length=10,default="For Boys")
+
+
+    deposite_money = models.IntegerField(default=1000)
+
 
     def __str__(self):
         return f"{self.room_type} in {self.house}"
