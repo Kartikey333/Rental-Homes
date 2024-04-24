@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% load socialaccount %}
+
+
+{% block page_title %}
+    <h2><a href="{% url 'room-index'  %}">Rooms</a></h2>
+{% endblock page_title %}
+
+{% block page_content %}
+
+{% comment %} <div class="demo"> {% endcomment %}
+        
+    <div class="form-filter">
+        <form method="GET">
+                {{ rooms.form.furnished }}
+                {{ rooms.form.room_type }}
+                {{ rooms.form.available }}
+                {{ rooms.form.room_for }}
+
+                {{ rooms.form.budget_range }}
+
+
+                <input type="submit" />
+        </form>
+    </div>
+    <div class="navbar">
+        {% if request.user.is_authenticated %}
+            <p>Welcome {{user}}</p>
+            <button><a href="{% url 'add-house' %}">Add House</a></button>
+            <button><a href="{% url 'house-list' user %}">My House</a></button>
+            <button><a href="{% url 'logout' %}">logout</a></button>
+        {% else %}
+            <button><a href="{% url 'login' %}">login</a></button>
+            <button><a href="{% url 'signup' %}">signup</a></button>
+        {% endif %}
+    </div>
+    {% for room in rooms.qs %}
+    <div class="my-div">
+    <div class="container">
+        <div>
+            <!-- <img
+            src="https://images.unsplash.com/photo-1549589237-9e70b6be4da8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=925&q=80"
+            alt="House"
+            /> -->
+        </div>
+       
+        <a href="{% url 'room-details' room.pk %}">
+            <div class="container__text">
+                <h1>{{room.room_type}}</h1>
+                <div class="btn_top">
+                    {{room.room_for}}
+                </div>
+                <div class="availibility">
+                    <div class="box-1">
+                        {{room.house}} {{room.house.area}}
+                    </div>
+                    <div class="availibility-status">    
+                        <div class="availibility-circle"></div>
+                        <div class="box-2">{{room.available}}</div>
+                    </div>
+                    
+                </div>
+        </a>
+        
+
+            <div class="container__text__star">
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            </div>
+
+            <button class="btn">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                <a href="https://www.google.com/maps?q={{ room.house.latitude }},{{ room.house.longitude }}" target="_blank" class="no-underline">
+                    View on Map</a>
+                <i class="fa fa-arrow-right"></i></button>
+        </div>
+    </div>
+
+    </div> 
+
+    <div>
+        <p>
+            
+        </p>
+
+    </div>
+    {% endfor %}
+    
+{% comment %} </div> {% endcomment %}
+{% endblock page_content %}
+
+

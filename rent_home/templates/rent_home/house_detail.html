@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+    <h2> Home Owner Info  </h2> 
+{% endblock page_title %}
+
+{% block page_content %}
+    
+<main>
+  <div class="navbar">
+    <a href="{% url 'room-index' %}">home</a>
+    {% if user == house.user %}
+      <a href="{% url 'house-update' house.pk %}">Update House</a>
+      <a href="{% url 'add-room' house.pk %}">Add Room</a>
+    {% endif %}
+  </div>
+  <div class = "card">
+    <!-- <img src="https://images.unsplash.com/photo-1656618020911-1c7a937175fd?crop=entropy&cs=tinysrgb&fm=jpg&ixid=MnwzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2NTc1MzQyNTE&ixlib=rb-1.2.1&q=80" alt=""> -->
+    <div class="card-content">
+      <h2>
+        {{house.house_name }}: {{house.house_no}}
+      </h2>
+      <p>
+        Owner: {{house.owner_name}}
+        <br/>
+        Address: {{house.address}} 
+        <br/>
+        Contact Number: {{house.contact_no}}
+      </br>
+        Property Type : {{house.property_type}}
+      </p>
+      <a href="#" class="button">
+        Find out more 
+        <span class="material-symbols-outlined">
+          arrow_right_alt
+        </span>
+      </a>
+    </div>
+    <div>
+    <div class="navbar">
+    </div>
+
+      <p> Rooms </p>
+
+      {% for room in rooms %}
+        <button>
+          <a href="{% url 'room-details' room.pk %}">
+            {% if room.available is True %}
+              <p>available</p>
+  
+              {% if room.furnished is True  %}
+                <p>furnished</p>
+              {% endif %}
+  
+              <p>Rent {{room.rent}}</p>
+  
+              <p>Electric bill per unit {{room.electricity_bill_per_unit}}</p>
+
+            {% else %}
+              <p>not available</p>
+          
+            {% endif %}
+          </a>
+        </button>
+        <hr>
+      {% endfor %}
+    </div>
+    </div>
+</main>
+
+{% endblock page_content %}

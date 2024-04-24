@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <p>Welcome {{ user }}</p>
+        <a href="{% url 'room-index' %}">Home</a>
+    </div>
+    <div>
+        <h2>Add House</h2>
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="button" onclick="getUserLocation()">Use My Current Location</button>
+
+            
+            <input type="submit" name="" id="" value="submit">
+        </form>
+    </div>
+
+    <script>
+        const lat = document.getElementById('lat');
+        const long = document.getElementById('long');
+        const button = document.getElementById('get-location');
+
+        // console.log(lat)
+        // console.log(long)
+        // console.log(button)
+
+        function getUserLocation() {
+            try{
+                if ("geolocation" in navigator) {
+                    // navigator.geolocation.getCurrentPosition(function(position) {
+                    //     document.getElementById('lat').value = position.coords.latitude;
+                    //     document.getElementById('long').value = position.coords.longitude;
+                    // })
+                    var position = navigator.geolocation.getCurrentPosition((position)=>{
+                        document.getElementById('lat').value = position.coords.latitude;
+                        document.getElementById('long').value = position.coords.longitude;
+                    })
+
+                }
+            }catch(error){
+                alert('error in getting location', error)
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+<!-- <div class="grid-try">
+    <div class="grid-item-try">
+        <p>Hello</p>
+    </div>
+    <div class="grid-item-try">
+        <p>Hello</p>
+    </div>
+    <div class="grid-item-try">
+        <p>Hello</p>
+    </div>
+    <div class="grid-item-try">
+        <p>Hello</p>
+    </div>
+    <div class="grid-item-try">
+        <p>Hello</p>
+        <div class="circle"></div>
+
+    </div>
+    <div class="grid-item-try">
+        <p>Hello</p>
+
+        <div class="studio-button">
+            <div class="studio-button-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle></svg>
+            </div>
+
+    </div>
+</div> -->
+<div class="studio-button">
+    <div class="studio-button-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle></svg>
+    </div>
+
+    <div class="navbar">
+        <a href="{% url 'room-index' %}">home</a>
+        {% if request.user == room.house.user %}
+          <a href="{% url 'room-update' room.pk %}">Update Room Status</a>
+        {% endif %}
+    </div>
+
+    <div>
+        {{ room.room_type }}
+        {% if room.available is True %}
+          <p>available</p>
+        {% else %}
+          <p>unavailable</p>
+        {% endif %}
+
+        {% if room.furnished is True  %}
+          <p>furnished</p>
+        {% endif %}
+        <p>Rent {{room.rent}}</p>
+        <p>Electric bill per unit {{room.electricity_bill_per_unit}}</p>
+        <p>{{room.house}}</p>
+        <p><a href="{% url 'house-detail' room.house.pk %}">Visit House</a></p>
+        
+    </div>
+
+{% endblock page_content %}

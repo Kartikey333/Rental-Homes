@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+<body>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <input type="submit" name="" id="" value="submit">
+    </form>
+
+    <script>
+        
+            var budget_range_alert = document.getElementById('budget-range');
+            if (budget_range_alert) {
+                budget_range_alert.insertAdjacentHTML('afterend', '<span> (please select range which includes rent)</span>');
+            }
+    </script>
+</body>
+</html>

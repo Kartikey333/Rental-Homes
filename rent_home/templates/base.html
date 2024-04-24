@@ -1,0 +1,100 @@
+<!-- Base template -->
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+   
+</head>
+
+<body>
+        <div class="navigation">
+            <div class="nav-container">
+              <div class="brand">
+                <a href="#!">Rental Homes</a>
+              </div>
+              <nav>
+                <div class="nav-mobile">
+                  <a id="nav-toggle" href="#!"><span></span></a>
+                </div>
+                <ul class="nav-list">
+                  <!-- Setting the links to #! will ensure that no action takes place on click. -->
+                  <li><a href="#!">Home</a></li>
+                  <li><a href="#!">About</a></li>
+                  <li><a href="#!">Services</a>
+                    <ul class="nav-dropdown">
+                      <li><a href="#!">Web Design</a></li>
+                      <li><a href="#!">Web Development</a></li>
+                      <li><a href="#!">Graphic Design</a></li>
+                    </ul>
+                  </li>
+                  <li><a href="#!">Pricing</a></li>
+                  <li><a href="#!">Contact</a></li>
+                </ul>
+              </nav>
+            </div>
+        </div>
+    <div class="headline">
+        {% comment %} <section class="headline"> {% endcomment %}
+            <h1></h1>
+            <div>
+                <div class="search-container">
+                    <form autocomplete="off" class="search-form">
+                      <div class="finder">
+                        <div class="finder__outer">
+                          <div class="finder__inner">
+                            <div class="finder__icon" ref="icon"></div>
+                            <input class="finder__input" type="text" name="q" />
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+
+            </div>
+            
+        {% comment %} </section> {% endcomment %}
+    </div>
+
+    {% comment %} <h1>Rental Homes</h1> {% endcomment %}
+    <hr>
+    {% block page_title %}{% endblock page_title %}
+    {% block page_content %}{% endblock page_content %}
+
+<script src="{% static 'js/card.js' %}"> </script>
+<script type="text/javascript">
+    const input = document.querySelector(".finder__input");
+const finder = document.querySelector(".finder");
+const form = document.querySelector(".search-form");
+
+input.addEventListener("focus", () => {
+  finder.classList.add("active");
+});
+
+input.addEventListener("blur", () => {
+  if (input.value.length === 0) {
+    finder.classList.remove("active");
+  }
+});
+
+form.addEventListener("submit", (ev) => {
+  ev.preventDefault();
+  finder.classList.add("processing");
+  finder.classList.remove("active");
+  input.disabled = true;
+  setTimeout(() => {
+    finder.classList.remove("processing");
+    input.disabled = false;
+    if (input.value.length > 0) {
+      finder.classList.add("active");
+    }
+  }, 1000);
+});
+
+</script>
+<!-- Include jQuery from CDN -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+</body>
+
+</html>
